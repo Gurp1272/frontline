@@ -1,0 +1,52 @@
+<section id="geolocation" phx-hook="Geolocation" class="text-center">
+  See top fires for
+  <.form for={:test} phx-change="change-location">
+    <select name="location">
+      <%= options_for_select(@options, @selected_option) %>
+    </select>
+  </.form>
+</section>
+
+
+<section class="text-center flex flex-wrap">
+  <%= for incident <- @filtered_dataset do %>
+      <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">
+            <%= Map.fetch!(incident, "properties") |> Map.fetch!("IncidentName")  %>
+          </div>
+
+          <%= if Map.has_key?(incident, "distance_from_me") do  %>
+            <p>
+              Distance From Me: <%= Map.fetch!(incident, "distance_from_me") %> km
+            </p>
+          <% end %>
+
+          <p class="text-gray-700 text-base">
+            Daily Acres: <%= Map.fetch!(incident, "properties") |> Map.fetch!("DailyAcres") %>
+          </p>
+          <p>
+            Fire Cause: <%= Map.fetch!(incident, "properties") |> Map.fetch!("FireCause") %>
+          </p>
+          <p>
+            Total Incident Personnel: <%= Map.fetch!(incident, "properties") |> Map.fetch!("TotalIncidentPersonnel") %>
+          </p>
+          <p>
+            Fire Mgmt Complexity: <%= Map.fetch!(incident, "properties") |> Map.fetch!("FireMgmtComplexity") %>
+          </p>
+          <p>
+            Injuries: <%= Map.fetch!(incident, "properties") |> Map.fetch!("Injuries") %>
+          </p>
+          <p>
+            Fatalities: <%= Map.fetch!(incident, "properties") |> Map.fetch!("Fatalities") %>
+          </p>
+          <p>
+            Residences Destroyed: <%= Map.fetch!(incident, "properties") |> Map.fetch!("ResidencesDestroyed") %>
+          </p>
+          <p>
+            Percent Contained: <%= Map.fetch!(incident, "properties") |> Map.fetch!("PercentContained") %>
+          </p>
+        </div>
+      </div>
+  <% end %>
+</section>
