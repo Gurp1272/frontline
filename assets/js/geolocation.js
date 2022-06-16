@@ -9,8 +9,6 @@ let Hook = {
 
         function getLocation(position) {
             view.pushEvent("update-geolocation", [position.coords.latitude, position.coords.longitude]);
-            console.log(position.coords.latitude);
-            console.log(position.coords.longitude);
         }
 
         function errorHandler(err) {
